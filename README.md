@@ -7,7 +7,7 @@
 <a href="https://github.com/samvauclain/weather-and-real-estate/pulls"><img src="https://img.shields.io/github/issues-pr/samvauclain/weather-and-real-estate" alt="Pull Requests Badge"/></a>
 <a href="https://github.com/samvauclain/weather-and-real-estate/issues"><img src="https://img.shields.io/github/issues/samvauclain/weather-and-real-estate" alt="Issues Badge"/></a>
 <a href="https://github.com/samvauclain/weather-and-real-estate/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/samvauclain/weather-and-real-estate?color=2b9348"></a>
-<a href="https://github.com/elangosundar/awesome-README-templates/blob/master/LICENSE"><img src="https://img.shields.io/github/license/elangosundar/awesome-README-templates?color=2b9348" alt="License Badge"/></a>
+<a href="https://github.com/samvauclain/weather-and-real-estate/blob/README.md-LICENSE/LICENSE"><img src="https://img.shields.io/github/license/elangosundar/awesome-README-templates?color=2b9348" alt="License Badge"/></a>
 </div>
 <br>
 <p align="center"><i>Loved the project? Please visit our <a href="https://awesome-github-readme-profile.netlify.app">Website</a></i></p>
