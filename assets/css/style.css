@@ -1,0 +1,11 @@
+.hero {
+    width: 100%;
+    height: 300px;
+    background-position:50%;
+    background-image: url(../img/real-estate-hero.jpg);
+    /* background-image: url(http://placekitten.com/g/2000/300); */
+}
+
+a.navbar-item:hover {
+   background-color:rgb(27, 202, 144); 
+}
