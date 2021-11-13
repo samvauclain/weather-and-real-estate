@@ -30,7 +30,7 @@ var Add_Map = function (lat, lon) {
 
 var AddMarker = function (lat, lon, n) {
         marker[n] = L.marker([lat, lon]).addTo(mymap);
-        marker[n].bindPopup("<b>Hello world!</b><br>I am popup"+ n + ".").openPopup();
+        marker[n].bindPopup("<img src='./assets/img/real-estate-hero.jpg'><b>Hello world!</b><br>I am popup"+ n + ". Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ut veritatis suscipit, eaque architecto illo quibusdam rerum itaque! Quaerat maxime amet eaque totam ea sed doloribus unde provident iste atque!").openPopup();
 }
 
 var Map_reset = function () {
