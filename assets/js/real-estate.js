@@ -1,4 +1,7 @@
-var houseImage = document.getElementById("houseImage");
+var houseImageEl = document.getElementById("houseImage");
+var houseContentEl = document.getElementById("houseContent");
+var housePriceEl = document.getElementById("housePrice");
+var houseImage = "";
 
 city ="Los%20Angeles";
 
@@ -16,10 +19,36 @@ fetch(`https://real-estate12.p.rapidapi.com/listings/sale?state=CA&city=${city}&
     return response.json();
 })
 .then(function (data) {
+	houseImage = data.properties[0].primary_photo.href;
     console.log(data);
-    console.log(data.properties);
-    // houseImage.innerHTML = `<img src="${}" alt="Placeholder image">`
+	console.log(data.properties[0].list_price);
+	console.log(data.properties[0].description.baths,
+	data.properties[0].description.beds,
+	data.properties[0].description.sqft);
+	
+    houseImageEl.innerHTML = `<img src="${houseImage}" alt="Placeholder image">`
+	houseContentEl.innerHTML = `<p>${data.properties[0].location.address.line}</p>
+	<p>
+		${data.properties[0].description.beds} Beds
+	    ${data.properties[0].description.baths} Baths
+		${data.properties[0].description.sqft} sqft
+	</p>`;
+	housePriceEl.innerHTML = `$ ${data.properties[0].list_price}`;
+
 })
 .catch(err => {
 	console.error(err);
 });
+
+
+
+
+
+
+
+
+
+
+// console.log (data.properties[0].location.address.line);
+	// console.log(data.properties[0].primary_photo.href);
+    // console.log(data.properties);
