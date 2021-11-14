@@ -25,13 +25,20 @@ fetch(`https://real-estate12.p.rapidapi.com/listings/sale?state=CA&city=${city}&
 	console.log(data.properties[0].description.baths,
 	data.properties[0].description.beds,
 	data.properties[0].description.sqft);
+
 	
     houseImageEl.innerHTML = `<img src="${houseImage}" alt="Placeholder image">`
-	houseContentEl.innerHTML = `<p>${data.properties[0].location.address.line}</p>
+	houseContentEl.innerHTML = 
+	`<p>
+	${data.properties[0].location.address.line},
+	${data.properties[0].location.address.postal_code},
+	${data.properties[0].location.address.state_code},
+	${data.properties[0].location.address.city}
+	</p>
 	<p>
-		${data.properties[0].description.beds} Beds
-	    ${data.properties[0].description.baths} Baths
-		${data.properties[0].description.sqft} sqft
+		<b>${data.properties[0].description.beds}</b> Beds
+	    <b>${data.properties[0].description.baths}</b> Baths
+		<b>${data.properties[0].description.sqft} </b> sqft
 	</p>`;
 	housePriceEl.innerHTML = `$ ${data.properties[0].list_price}`;
 
