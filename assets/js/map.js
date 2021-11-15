@@ -1,13 +1,6 @@
 // alert("map js connected");
-
+/*
 var map = document.getElementById("map");
-
-//pretend these are houses' locations
-var lat = [51.5, 51.5, 51.5, 51.5, 51.49, 51.49];
-var lon = [-0.09, -0.08, -0.10, -0.11, -0.11, -0.10];
-
-//counter for houses found
-var n = 6; 
 
 //empty array to keep markers on map
 var marker = [];
@@ -28,12 +21,13 @@ var Add_Map = function (lat, lon) {
     }).addTo(mymap);
 }
 
-var AddMarker = function (lat, lon, n) {
+var AddMarker = function (lat, lon, n, img_url) {
         marker[n] = L.marker([lat, lon]).addTo(mymap);
-        marker[n].bindPopup("<b>Hello world!</b><br>I am popup"+ n + ".").openPopup();
+        console.log(img_url);
+        marker[n].bindPopup('<img src=' + img_url + '><b>Hello world!</b><br>I am popup'+ n + '. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ut veritatis suscipit, eaque architecto illo quibusdam rerum itaque! Quaerat maxime amet eaque totam ea sed doloribus unde provident iste atque!').openPopup();
 }
 
-var Map_reset = function () {
+var Map_reset = function () { 
     var i = 0;
     while(i < marker.length) {
         marker[i].remove();
@@ -42,15 +36,4 @@ var Map_reset = function () {
     mymap.remove();
     map.removeAttribute("style");
 }
-
-
-
-//center of map adjust based on user input
-Add_Map(51.505, -0.09);
-
-//In final code, call AddMarker everytime you find a new house
-for(var i = 0; i < n; i++) {
-    AddMarker(lat[i], lon[i], i);
-}
-
-
+*/
