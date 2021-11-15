@@ -62,6 +62,8 @@ var formSubmitHandler = function (event) { //Get Input
     .then(function (data) {
 
         Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
+
+        houseCardsEl.innerHTML = '';
             
         for (let i = 0; i < 12; i++) {
             houseCardsEl.innerHTML += 
@@ -104,8 +106,6 @@ var formSubmitHandler = function (event) { //Get Input
         console.error(err);
     });
 };
-
-
 
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
