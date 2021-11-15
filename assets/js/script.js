@@ -61,7 +61,7 @@ var formSubmitHandler = function (event) { //Get Input
 
     .then(function (data) {
 
-        Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
+        Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[1].location.address.coordinate.lon);
 
         houseCardsEl.innerHTML = '';
             
