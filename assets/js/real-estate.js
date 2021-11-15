@@ -58,7 +58,46 @@ houseCardsEl.innerHTML +=
 	
 }
 
+	Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
+
+	for (let i = 0; i < 12; i++) {
+		houseCardsEl.innerHTML += 
+			`<div id="column-${i}" class="column is-one-quarter">
+			<div class="card">
+			<div class="card-image">
+				<figure id="houseImage" class="image is-4by3">
+				<img src= "${data.properties[i].primary_photo.href}" alt="House image ${i}">
+				</figure>
+			</div>
+			<div class="card-content">
+				<div class="media">
+				<div class="media-content">
+					<p class="title is-4">$${data.properties[i].list_price}</p>
+				</div>
+				</div>
+				<div class="content">
+				<p>
+					${data.properties[i].location.address.line},
+					${data.properties[i].location.address.postal_code},
+					${data.properties[i].location.address.state_code},
+					${data.properties[i].location.address.city}
+				</p>
+				<p>
+					<b>${data.properties[i].description.beds}</b> Beds
+					<b>${data.properties[i].description.baths}</b> Baths
+					<b>${data.properties[i].description.sqft} </b> sqft
+				</p>
+
+				</div>
+			</div>
+			</div>
+		</div>`
+
+
+	AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href);
+	}
 })
+
 .catch(err => {
 	console.error(err);
 });
@@ -67,7 +106,7 @@ houseCardsEl.innerHTML +=
 
 
 
-
+*/
 
 
 
