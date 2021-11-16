@@ -97,8 +97,8 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
                 </div>
             </div>`
-
-        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href);
+        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " + data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
+        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
         }
     })
 
