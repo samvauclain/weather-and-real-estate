@@ -7,6 +7,10 @@ var houseCardsEl = document.getElementById("houseCards");
 var map = document.getElementById("map");
 var marker = [];
 var mymap;
+//modalbox for error message
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+var catch_error = 0;
 
 
 var Add_Map = function (lat, lon) {
@@ -22,10 +26,10 @@ var Add_Map = function (lat, lon) {
     }).addTo(mymap);
 };
 
-var AddMarker = function (lat, lon, n, img_url) {
+var AddMarker = function (lat, lon, n, img_url, address) {
         marker[n] = L.marker([lat, lon]).addTo(mymap);
-        console.log(img_url);
-        marker[n].bindPopup('<img src=' + img_url + '><b>Hello world!</b><br>I am popup'+ n + '. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ut veritatis suscipit, eaque architecto illo quibusdam rerum itaque! Quaerat maxime amet eaque totam ea sed doloribus unde provident iste atque!').openPopup();
+        marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
+        catch_error = 0;
 };
 
 var Map_reset = function () { 
@@ -44,7 +48,9 @@ var Map_reset = function () {
 var formSubmitHandler = function (event) { //Get Input
     event.preventDefault();
 
-    Map_reset(); //clear old map & markers
+    if(catch_error){
+        Map_reset(); //clear old map & markers
+    };
 
     city = cityInputEl.value.trim();
 
@@ -96,16 +102,26 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`
 
-        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href);
+        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
+        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
         }
     })
 
     .catch(err => {
-        console.error(err);
+        modal.setAttribute("style", "display: block;");
+        catch_error = 1;
     });
 };
 
-
-
+span.onclick = function() {
+    modal.style.display = "none";
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
