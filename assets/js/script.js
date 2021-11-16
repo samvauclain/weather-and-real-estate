@@ -22,10 +22,9 @@ var Add_Map = function (lat, lon) {
     }).addTo(mymap);
 };
 
-var AddMarker = function (lat, lon, n, img_url) {
+var AddMarker = function (lat, lon, n, img_url, address) {
         marker[n] = L.marker([lat, lon]).addTo(mymap);
-        console.log(img_url);
-        marker[n].bindPopup('<img src=' + img_url + '><b>Hello world!</b><br>I am popup'+ n + '. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ut veritatis suscipit, eaque architecto illo quibusdam rerum itaque! Quaerat maxime amet eaque totam ea sed doloribus unde provident iste atque!').openPopup();
+        marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
 };
 
 var Map_reset = function () { 
@@ -98,7 +97,9 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`
 
-        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href);
+        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " + data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
+        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
+        }
         }
     })
 
