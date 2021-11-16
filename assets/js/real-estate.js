@@ -4,7 +4,7 @@
 // var houseImage = "";
 var houseCardsEl = document.getElementById("houseCards")
 
-city ="Sacramento";
+// city ="Sacramento";
 
 //original fetch URL https://real-estate12.p.rapidapi.com/listings/sale?state=CA&city=Los%20Angeles&page=1&sort=relevant&type=single-family%2Cmulti-family
 
