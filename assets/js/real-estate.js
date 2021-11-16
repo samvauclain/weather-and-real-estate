@@ -103,14 +103,6 @@ houseCardsEl.innerHTML +=
 });
 
 
-
-
-
-*/
-
-
-
-
 // console.log (data.properties[0].location.address.line);
 	// console.log(data.properties[0].primary_photo.href);
     // console.log(data.properties);

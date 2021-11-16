@@ -60,7 +60,7 @@ var formSubmitHandler = function (event) { //Get Input
 
     .then(function (data) {
 
-        Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[1].location.address.coordinate.lon);
+        Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
 
         houseCardsEl.innerHTML = '';
             
@@ -70,7 +70,7 @@ var formSubmitHandler = function (event) { //Get Input
                 <div class="card">
                 <div class="card-image">
                     <figure id="houseImage" class="image is-4by3">
-                    <img src= "${data.properties[i].primary_photo.href}" alt="House image ${i}">
+                    <img src="${data.properties[i].primary_photo.href}" alt="House image ${i}">
                     </figure>
                 </div>
                 <div class="card-content">
