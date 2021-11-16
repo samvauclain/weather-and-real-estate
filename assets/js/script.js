@@ -22,10 +22,9 @@ var Add_Map = function (lat, lon) {
     }).addTo(mymap);
 };
 
-var AddMarker = function (lat, lon, n, img_url) {
+var AddMarker = function (lat, lon, n, img_url, address) {
         marker[n] = L.marker([lat, lon]).addTo(mymap);
-        console.log(img_url);
-        marker[n].bindPopup('<img src=' + img_url + '><b>Hello world!</b><br>I am popup'+ n + '. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ut veritatis suscipit, eaque architecto illo quibusdam rerum itaque! Quaerat maxime amet eaque totam ea sed doloribus unde provident iste atque!').openPopup();
+        marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
 };
 
 var Map_reset = function () { 
