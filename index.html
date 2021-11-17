@@ -46,7 +46,7 @@
             <form id="city-form">
         <div class="field">
           <p class="control has-icons-left has-icons-right">
-              <input id="cityname" class="input" type="text" placeholder="search">
+              <input id="cityname" class="input" type="text" placeholder="search" autocomplete="off">
               <span class="icon is-small is-left">
                 <i class="fas fa-search"></i>
               </span>
@@ -69,6 +69,32 @@
   </section>
 
   <section class="section">
+    <div id="container">
+      <div id="houseCards" class="columns is-multiline">
+        <div class="column">
+          <div class="card">
+              <p class="title">Local Weather</p>
+              <div class="media">
+                <div class="card-image">
+                  <figure class="image is-429x327">
+                    <img src="https://i.imgur.com/ynO34z0.png">
+                  </figure>
+              </div>
+              <div class="current">
+                <h1 id="temp" class="title is-1">56<span>°F</span></h1>
+                <h2 id="weather" class="title is-2">Partly Cloudy</h2>
+                <h5 id="hi-low"class="title is-5">61°F / 46°F</h5>
+              </div>
+              <div>
+                <div class="city"> Sacramento, CA</div>
+                <div class="date">Tuesday 16 November 2021</div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </section>
+
+  <section class="section">
     <div class="container">
       <div id="houseCards" class="columns is-multiline">
   </div>
@@ -78,9 +104,9 @@
    
 
       <script src="./assets/js/script.js"></script>
-      <!-- <script src="./assets/js/map.js"></script> -->
+      <script src="./assets/js/map.js"></script> 
       <script src="./assets/js/weather.js"></script>
-      <!-- <script src="./assets/js/real-estate.js"></script> -->
+      <script src="./assets/js/real-estate.js"></script> 
 </body>
 
 </html>
