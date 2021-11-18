@@ -12,6 +12,11 @@ a.navbar-item:hover {
    background-color:rgb(27, 202, 144); 
 }
 
+#map {
+    margin-top: 20px; 
+    height: 350px; 
+}
+
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
