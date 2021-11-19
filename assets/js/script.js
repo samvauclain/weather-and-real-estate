@@ -7,25 +7,34 @@ var houseCardsEl = document.getElementById("houseCards");
 var map = document.getElementById("map");
 var marker = [];
 var mymap;
+var first = 1;
+//modalbox for error message
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+var catch_error = 0;
 
 
 var Add_Map = function (lat, lon) {
-    map.setAttribute("style", "margin-top: 20px; height: 350px;");
-    mymap = L.map('map').setView([lat, lon], 13); 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFnZ2llOTY4NSIsImEiOiJja3Z0NmRsajk3c3pqMzBxcDg4bTU5amc0In0.eZRtZIrAHKxxLrTXZ3jAUg', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoibWFnZ2llOTY4NSIsImEiOiJja3Z0NmRsajk3c3pqMzBxcDg4bTU5amc0In0.eZRtZIrAHKxxLrTXZ3jAUg'
-    }).addTo(mymap);
+    if(first){
+        mymap = L.map('map').setView([lat, lon], 13); 
+        first = 0;
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFnZ2llOTY4NSIsImEiOiJja3Z0NmRsajk3c3pqMzBxcDg4bTU5amc0In0.eZRtZIrAHKxxLrTXZ3jAUg', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoibWFnZ2llOTY4NSIsImEiOiJja3Z0NmRsajk3c3pqMzBxcDg4bTU5amc0In0.eZRtZIrAHKxxLrTXZ3jAUg'
+        }).addTo(mymap);
+    } else {
+        mymap.flyTo([lat, lon], 13); 
+    }
 };
 
-var AddMarker = function (lat, lon, n, img_url) {
+var AddMarker = function (lat, lon, n, img_url, address) {
         marker[n] = L.marker([lat, lon]).addTo(mymap);
-        console.log(img_url);
-        marker[n].bindPopup('<img src=' + img_url + '><b>Hello world!</b><br>I am popup'+ n + '. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit ut veritatis suscipit, eaque architecto illo quibusdam rerum itaque! Quaerat maxime amet eaque totam ea sed doloribus unde provident iste atque!').openPopup();
+        marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
+        catch_error = 0;
 };
 
 var Map_reset = function () { 
@@ -35,8 +44,6 @@ var Map_reset = function () {
             marker[i].remove();
             i++;
         }
-        mymap.remove();
-        map.removeAttribute("style");
     }
 };
 
@@ -44,7 +51,9 @@ var Map_reset = function () {
 var formSubmitHandler = function (event) { //Get Input
     event.preventDefault();
 
-    Map_reset(); //clear old map & markers
+    if(catch_error){
+        Map_reset(); //clear old map & markers
+    };
 
     city = cityInputEl.value.trim();
 
@@ -65,6 +74,8 @@ var formSubmitHandler = function (event) { //Get Input
 
         houseCardsEl.innerHTML = '';
             
+        houseCardsEl.innerHTML = '';
+
         for (let i = 0; i < 12; i++) {
             houseCardsEl.innerHTML += 
                 `<div id="column-${i}" class="column is-one-quarter">
@@ -96,16 +107,39 @@ var formSubmitHandler = function (event) { //Get Input
                     </div>
                 </div>
                 </div>
+<<<<<<< HEAD
             </div>`
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " + data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
+=======
+            </div>`;
+
+        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
+>>>>>>> 80a1c012fa192bd357507bd15a59f1f7d23ab6f0
         AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
         }
     })
 
     .catch(err => {
-        console.error(err);
+        console.log(err);
+        modal.setAttribute("style", "display: block;");
+        catch_error = 1;
     });
 };
 
+<<<<<<< HEAD
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
+=======
+span.onclick = function() {
+    modal.setAttribute("style", "display: none;");
+}
+  
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.setAttribute("style", "display: none;");
+    }
+}
+
+cityFormEl.addEventListener('submit', formSubmitHandler);
+>>>>>>> 80a1c012fa192bd357507bd15a59f1f7d23ab6f0
