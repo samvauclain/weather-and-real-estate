@@ -78,12 +78,45 @@ var formSubmitHandler = function (event) { //Get Input
 
         for (let i = 0; i < 12; i++) {
 
-            var houseImg;
+            var houseImg, housePrice, houseAddress, housePostal, houseState, houseCity, houseBeds, houseBaths, houseSqft;
+      
             if (data.properties[i].primary_photo != null) {
                 houseImg = data.properties[i].primary_photo.href;
             } else {houseImg = "./assets/img/imageNa.jpg"}
 
-            houseCardsEl.innerHTML += 
+            if (data.properties[i].list_price) {
+                housePrice = data.properties[i].list_price;
+            } else {housePrice = "N/A"}
+
+            if (data.properties[i].location.address.line) {
+                houseAddress = data.properties[i].location.address.line;
+            } else {houseAddress = "N/A"}
+
+            if (data.properties[i].location.address.postal_code) {
+                housePostal = data.properties[i].location.address.postal_code;
+            } else {housePostal = "N/A"}
+
+            if (data.properties[i].location.address.state_code) {
+                houseState = data.properties[i].location.address.state_code;
+            } else {houseState = "N/A"}
+
+            if (data.properties[i].location.address.city) {
+                houseCity = data.properties[i].location.address.city;
+            } else {houseCity = "N/A"}
+
+            if (data.properties[i].description.beds) {
+                houseBeds = data.properties[i].description.beds;
+            } else {houseBeds = "N/A"}
+
+            if (data.properties[i].description.baths) {
+                houseBaths = data.properties[i].description.baths;
+            } else {houseBaths = "N/A"}
+
+            if (data.properties[i].description.sqft) {
+                houseSqft = data.properties[i].description.sqft;
+            } else {houseSqft = "N/A"}
+
+               houseCardsEl.innerHTML += 
                 `<div id="column-${i}" class="column is-one-quarter">
                 <div class="card">
                 <div class="card-image">
@@ -94,20 +127,20 @@ var formSubmitHandler = function (event) { //Get Input
                 <div class="card-content">
                     <div class="media">
                     <div class="media-content">
-                        <p class="title is-4">$${data.properties[i].list_price}</p>
+                        <p class="title is-4">$${housePrice}</p>
                     </div>
                     </div>
                     <div class="content">
                     <p>
-                        ${data.properties[i].location.address.line},
-                        ${data.properties[i].location.address.postal_code},
-                        ${data.properties[i].location.address.state_code},
-                        ${data.properties[i].location.address.city}
+                        ${houseAddress},
+                        ${housePostal},
+                        ${houseState},
+                        ${houseCity}
                     </p>
                     <p>
-                        <b>${data.properties[i].description.beds}</b> Beds
-                        <b>${data.properties[i].description.baths}</b> Baths
-                        <b>${data.properties[i].description.sqft} </b> sqft
+                        <b>${houseBeds}</b> Beds
+                        <b>${houseBaths}</b> Baths
+                        <b>${houseSqft} </b> sqft
                     </p>
                     </div>
                 </div>
@@ -115,7 +148,7 @@ var formSubmitHandler = function (event) { //Get Input
             </div>`;
 
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
-        
+
         AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, houseImg, address);
         }
     })
