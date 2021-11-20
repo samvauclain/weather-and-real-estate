@@ -121,7 +121,7 @@ var formSubmitHandler = function (event) { //Get Input
                 <div class="card">
                 <div class="card-image">
                     <figure id="houseImage" class="image is-4by3">
-                    <img src= "${houseImg}" alt="House image ${i}">
+                    <img src="${houseImg}" alt="House image ${i}">
                     </figure>
                 </div>
                 <div class="card-content">

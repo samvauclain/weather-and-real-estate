@@ -8,9 +8,19 @@
     /* background-image: url(http://placekitten.com/g/2000/300); */
 }
 
-a.navbar-item:hover {
+/* a.navbar-item:hover {
    background-color:rgb(27, 202, 144); 
+} */
+
+/* .navbar-link {
+  background-color:inherit;
+  color:#fff;;
 }
+*/
+
+.navbar-link:not(.is-arrowless)::after {
+  border-color:#444;
+} 
 
 #map {
     margin-top: 20px; 
