@@ -62,12 +62,12 @@ var formSubmitHandler = function (event) { //Get Input
         }
     })
     .then(function (response) {
-        console.log(response);
+        // console.log(response);
         return response.json();
     })
 
     .then(function (data) {
-
+        console.log(data);
         if(Object.keys(data).includes("error")){ //detect invalid city name or typo
             modal.setAttribute("style", "display: block;");
         }
@@ -77,12 +77,18 @@ var formSubmitHandler = function (event) { //Get Input
         houseCardsEl.innerHTML = '';
 
         for (let i = 0; i < 12; i++) {
+
+            var houseImg;
+            if (data.properties[i].primary_photo != null) {
+                houseImg = data.properties[i].primary_photo.href;
+            } else {houseImg = "./assets/img/imageNa.jpg"}
+
             houseCardsEl.innerHTML += 
                 `<div id="column-${i}" class="column is-one-quarter">
                 <div class="card">
                 <div class="card-image">
                     <figure id="houseImage" class="image is-4by3">
-                    <img src= "${data.properties[i].primary_photo.href}" alt="House image ${i}">
+                    <img src= "${houseImg}" alt="House image ${i}">
                     </figure>
                 </div>
                 <div class="card-content">
@@ -109,11 +115,12 @@ var formSubmitHandler = function (event) { //Get Input
             </div>`;
 
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
-        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
+        
+        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, houseImg, address);
         }
     })
     .catch(err => {
-
+        console.error(err);
     });
 };
 
