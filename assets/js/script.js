@@ -11,7 +11,6 @@ var first = 1;
 //modalbox for error message
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
-var catch_error = 0;
 
 
 var Add_Map = function (lat, lon) {
@@ -32,9 +31,10 @@ var Add_Map = function (lat, lon) {
 };
 
 var AddMarker = function (lat, lon, n, img_url, address) {
+        if(lat&&lon){
         marker[n] = L.marker([lat, lon]).addTo(mymap);
         marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
-        catch_error = 0;
+        }
 };
 
 var Map_reset = function () { 
@@ -47,13 +47,10 @@ var Map_reset = function () {
     }
 };
 
-
 var formSubmitHandler = function (event) { //Get Input
     event.preventDefault();
 
-    if(catch_error){
-        Map_reset(); //clear old map & markers
-    };
+    Map_reset(); //clear old map & markers
 
     city = cityInputEl.value.trim();
 
@@ -61,14 +58,19 @@ var formSubmitHandler = function (event) { //Get Input
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "real-estate12.p.rapidapi.com",
-            "x-rapidapi-key": "47098b9725msh4a6c2ffb6424c90p193301jsnd9a8382167e8"
+            "x-rapidapi-key": "0fbbdd1a95msh72cdeb0d1f9e3cbp181050jsn72302190d720"
         }
     })
     .then(function (response) {
+        console.log(response);
         return response.json();
     })
 
     .then(function (data) {
+
+        if(Object.keys(data).includes("error")){ //detect invalid city name or typo
+            modal.setAttribute("style", "display: block;");
+        }
 
         Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
             
@@ -111,11 +113,8 @@ var formSubmitHandler = function (event) { //Get Input
         AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
         }
     })
-
     .catch(err => {
-        console.log(err);
-        modal.setAttribute("style", "display: block;");
-        catch_error = 1;
+
     });
 };
 
