@@ -107,14 +107,8 @@ var formSubmitHandler = function (event) { //Get Input
                     </div>
                 </div>
                 </div>
-<<<<<<< HEAD
             </div>`
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " + data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
-=======
-            </div>`;
-
-        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
->>>>>>> 80a1c012fa192bd357507bd15a59f1f7d23ab6f0
         AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
         }
     })
@@ -126,20 +120,5 @@ var formSubmitHandler = function (event) { //Get Input
     });
 };
 
-<<<<<<< HEAD
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
-=======
-span.onclick = function() {
-    modal.setAttribute("style", "display: none;");
-}
-  
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.setAttribute("style", "display: none;");
-    }
-}
-
-cityFormEl.addEventListener('submit', formSubmitHandler);
->>>>>>> 80a1c012fa192bd357507bd15a59f1f7d23ab6f0
