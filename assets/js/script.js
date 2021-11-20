@@ -103,12 +103,12 @@ var formSubmitHandler = function (event) { //Get Input
                         <b>${data.properties[i].description.baths}</b> Baths
                         <b>${data.properties[i].description.sqft} </b> sqft
                     </p>
-
                     </div>
                 </div>
                 </div>
-            </div>`
-        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " + data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
+            </div>`;
+
+        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
         AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, data.properties[i].primary_photo.href, address);
         }
     })
@@ -117,5 +117,15 @@ var formSubmitHandler = function (event) { //Get Input
     });
 };
 
+span.onclick = function() {
+    modal.setAttribute("style", "display: none;");
+}
+  
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.setAttribute("style", "display: none;");
+    }
+}
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
