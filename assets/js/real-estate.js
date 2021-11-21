@@ -2,7 +2,7 @@
 // var houseContentEl = document.getElementById("houseContent");
 // var housePriceEl = document.getElementById("housePrice");
 // var houseImage = "";
-/*var houseCardsEl = document.getElementById("houseCards")
+var houseCardsEl = document.getElementById("houseCards")
 
 city ="Sacramento";
 
@@ -21,6 +21,42 @@ fetch(`https://real-estate12.p.rapidapi.com/listings/sale?state=CA&city=${city}&
 })
 
 .then(function (data) {
+for (let i = 0; i < 12; i++) {
+houseCardsEl.innerHTML += 
+	`<div id="column-${i}" class="column is-one-quarter">
+    <div class="card">
+      <div class="card-image">
+        <figure id="houseImage" class="image is-4by3">
+          <img src= "${data.properties[i].primary_photo.href}" alt="House image ${i}">
+        </figure>
+      </div>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">$${data.properties[i].list_price}</p>
+          </div>
+          </div>
+          <div class="content">
+		  <p>
+			${data.properties[i].location.address.line},
+			${data.properties[i].location.address.postal_code},
+			${data.properties[i].location.address.state_code},
+			${data.properties[i].location.address.city}
+		</p>
+		<p>
+			<b>${data.properties[i].description.beds}</b> Beds
+	    	<b>${data.properties[i].description.baths}</b> Baths
+			<b>${data.properties[i].description.sqft} </b> sqft
+		</p>
+
+          </div>
+      </div>
+    </div>
+  </div>`
+
+
+	
+}
 
 	Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
 

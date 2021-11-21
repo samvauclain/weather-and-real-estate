@@ -15,20 +15,27 @@
     <title>Weather & Real Estate</title>
 </head>
 <body>
-  <div class="navbar-menu has-background-primary">
+  <div class="navbar-menu is-active">
     <div class="navbar-start">
-      <a class="navbar-item has-text-white is-size-2">
-        Logo
+      <a class="navbar-item is-size-3">
+        <i class="fas fa-home px-2"></i>  Dream Home
       </a>
     </div>
   
     <div class="navbar-end">
-      <a class="navbar-item has-text-white">
-        Favorites
-      </a>
-      <a class="navbar-item has-text-white">
+      <!-- <a class="navbar-item has-text-white">
         About
-      </a>
+      </a> -->
+
+      <div class="navbar-item has-dropdown is-hoverable is-size-4 mx-1">
+        <a class="navbar-link">
+          <i class="fas fa-heart px-3"></i> Favorites
+        </a>
+
+        <div id="savedCityDropdown" class="navbar-dropdown">
+          
+        </div>
+      </div>
     </div>
   </div>
 
@@ -36,32 +43,46 @@
     <div class="hero-body has-text-centered columns is-vcentered">
       <div class="container">
         <h1 class="title">
-          Hello World
+          Dream Home
         </h1>
         <p class="subtitle">
-          My first website with <strong>Bulma</strong>!
+          Weather & Real Estate Combined
         </p>
         <div class="columns is-centered">
           <div class="column is-one-third">
             <form id="city-form">
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-              <input id="cityname" class="input" type="text" placeholder="search">
+        <div class="field has-addons">
+          <p class="control has-icons-left has-icons-right is-expanded">
+              <input id="cityname" class="input" type="text" placeholder="Search by city">
               <span class="icon is-small is-left">
                 <i class="fas fa-search"></i>
               </span>
-              <span class="icon is-small is-right">
+              <!-- <span class="icon is-small is-right">
                 <i class="fas fa-check"></i>
-              </span>
+              </span> -->
+            </p>
+            <p class="control">
+              <select name="state-option" id="state-option" class="select-dropdown">
+                <option value="" selected disabled>Pick a State</option>
+              </select>
+            </p>
+            <p class="control">
+                <p class="control">
+                  <button id="searchBtn" class="button is-dark">
+                    Search
+                  </button>
+                </p>
+            </p>
+            <p>
               <div id="myModal" class="modal">
                 <div class="modal-content">
                   <span class="close">&times;</span>
                   <p>No property found, please check and try again!</p>
                 </div>
               </div>
-            </form>
-          </p>
+              </p>
         </div>
+        </form>
       </div>
     </div>
       </div>
@@ -81,12 +102,8 @@
 </div>
 
 </section>
-   
-
       <script src="./assets/js/script.js"></script>
- 
       <script src="./assets/js/weather.js"></script>
-
 </body>
 
 </html>
