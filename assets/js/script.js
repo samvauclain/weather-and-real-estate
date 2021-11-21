@@ -11,6 +11,10 @@ var first = 1;
 //modalbox for error message
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
+//cities array for local storage
+var savedCitiesArray = [];
+//element used to populate saved city searches
+var savedCityDropdown = document.getElementById('savedCityDropdown');
 
 
 var Add_Map = function (lat, lon) {
@@ -147,6 +151,8 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`;
 
+        saveCities(city);
+
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
 
         AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, houseImg, address);
@@ -169,3 +175,17 @@ window.onclick = function(event) {
 }
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
+
+function saveCities(city) {
+    if (city !== "") {
+        savedCitiesArray.push(city);
+    }
+    localStorage.setItem("cities", JSON.stringify(savedCitiesArray));
+    savedCityNavLinks();
+}
+
+    //   savedCityDropdown +=
+    //   `<a class="navbar-item">${currentCity}</a>`;
+    // Reference weather dashboard again, convert if needed
+   
+    
