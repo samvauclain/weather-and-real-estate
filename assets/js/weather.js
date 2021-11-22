@@ -1,1 +1,0 @@
-// alert("weather js connected");
