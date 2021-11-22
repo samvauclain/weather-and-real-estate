@@ -151,7 +151,7 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`;
 
-        saveCities(city);
+        localStorage.setItem(cityInputEl.value, cityInputEl.value);
 
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
 
@@ -176,16 +176,37 @@ window.onclick = function(event) {
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
 
-function saveCities(city) {
-    if (city !== "") {
-        savedCitiesArray.push(city);
-    }
-    localStorage.setItem("cities", JSON.stringify(savedCitiesArray));
-    savedCityNavLinks();
+function allStorage() {
+  
+    var values = [],
+    keys = Object.keys(localStorage),
+    i = keys.length;
+    console.log(keys);
+
+  while (i--) {
+      console.log(values);
+      values.push(localStorage.getItem(keys[i]));
+  }
+
+  return values;
 }
 
-    //   savedCityDropdown +=
+clearEl.addEventListener("click", () => {
+    localStorage.clear();
+    savedCityDropdown.innerHTML = ``;
+  });
+
+function refresh() {
+  cityInputEl.value = '';
+
+  for (var i = 0; i < allStorage().length; i++) {
+    savedCityDropdown +=
+      `<a class="navbar-item">${allStorage()[i]}</a>`;
+  }
+}
+
+refresh();
+
+//   savedCityDropdown +=
     //   `<a class="navbar-item">${currentCity}</a>`;
     // Reference weather dashboard again, convert if needed
-   
-    
