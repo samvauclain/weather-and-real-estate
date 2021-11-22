@@ -10,6 +10,12 @@ var map = document.getElementById("map");
 var marker = [];
 var mymap;
 var first = 1;
+//Weather
+var weatherCardsEl = document.getElementById('weatherCards');
+const api = {
+    key: "60942443d3e34eb3a1a12037eb43bc84",
+    base: "https://api.openweathermap.org/data/2.5/"
+}
 //modalbox for error message
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
@@ -19,7 +25,7 @@ var savedCitiesArray = [];
 var savedCityDropdown = document.getElementById('savedCityDropdown');
 
 
-for(var n = 0; n < state_opt.length; n++){
+for(var n = 0; n < state_opt.length; n++){ //dropdown menu for State
     stateOptEl.innerHTML += '<option value="' + state_opt[n] + '">' + state_opt[n] + '</option>';
 }
 
@@ -57,6 +63,46 @@ var Map_reset = function () {
     }
 };
 
+function getResults (query) { //Get Weather
+    fetch(`${api.base}forecast?q=${query}&units=imperial&APPID=${api.key}`)
+    .then(response => {
+        return response.json();
+    }).then(function(data) {
+        console.log(data);
+        // displayResults(data);
+        // let temp = document.querySelector('.current .title is-1');
+        // temp.innerHTML = `${data.main.temp}<span>°c</span>`;
+        // console.log(temp);
+
+        // var date = data.dt; 
+        var date = (moment(moment()).format("ddd, MM/DD/YYYY"));
+        
+        weatherCardsEl.innerHTML = "";
+
+    for (var i = 0; i < 5; i++) {
+        weatherCardsEl.innerHTML += 
+        `<div id="column-weather-${i}" class="column">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-content">
+                            <p class="title is-4">Date: ${date}</p>
+                        </div>
+                    </div>
+                    <div class="content">
+                        <img class="weatherIcon" src='http://openweathermap.org/img/wn/${data.list[i].weather[0].icon}.png'>
+                        <p>${data.list[i].weather[0].description}</p>
+                        <p>Temperature: ${Math.round(data.list[i].main.temp)}<span>°c</span></p>
+                        <p>Humidity: ${data.list[i].main.humidity}</p>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    });
+}
+
 var formSubmitHandler = function (event) { //Get Input
     event.preventDefault();
 
@@ -79,6 +125,9 @@ var formSubmitHandler = function (event) { //Get Input
 
     .then(function (data) {
         console.log(data);
+        
+        getResults(city);
+
         if(Object.keys(data).includes("error")){ //detect invalid city name or typo
             modal.setAttribute("style", "display: block;");
         }
@@ -158,7 +207,8 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`;
 
-       // saveCities(city);
+        localStorage.setItem(cityInputEl.value, cityInputEl.value);
+        refresh();
 
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
 
@@ -181,17 +231,40 @@ window.onclick = function(event) {
     }
 }
 
-cityFormEl.addEventListener('submit', formSubmitHandler);
-/*
-function saveCities(city) {
-    if (city !== "") {
-        savedCitiesArray.push(city);
-    }
-    localStorage.setItem("cities", JSON.stringify(savedCitiesArray));
-    savedCityNavLinks();
+function allStorage() {
+  
+    var values = [],
+    keys = Object.keys(localStorage),
+    i = keys.length;
+    console.log(keys);
+
+  while (i--) {
+      console.log(values);
+      values.push(localStorage.getItem(keys[i]));
+  }
+
+  return values;
 }
-*/
-    //   savedCityDropdown +=
+
+function refresh() {
+  cityInputEl.value = '';
+
+  for (var i = 0; i < allStorage().length; i++) {
+    savedCityDropdown.innerHTML += 
+      `<a class="navbar-item">${allStorage()[i]}</a>`;
+  }
+}
+
+// clearEl.addEventListener("click", () => {
+//     localStorage.clear();
+//     savedCityDropdown.innerHTML = ``;
+//   });
+
+
+refresh();
+
+cityFormEl.addEventListener('submit', formSubmitHandler);
+//   savedCityDropdown +=
     //   `<a class="navbar-item">${currentCity}</a>`;
     // Reference weather dashboard again, convert if needed
    
