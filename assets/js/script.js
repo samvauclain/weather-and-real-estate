@@ -69,7 +69,7 @@ function getResults (query) { //Get Weather
         return response.json();
     }).then(function(data) {
 
-        var date = (moment(moment()).format("ddd, MM/DD/YYYY"));
+  
         
         weatherCardsEl.innerHTML = "";
 
@@ -80,7 +80,7 @@ function getResults (query) { //Get Weather
                 <div class="card-content">
                     <div class="media">
                         <div class="media-content">
-                            <p class="title is-4">Date: ${date}</p>
+                            <p class="title is-4">Date: ${moment(moment()).add(i+1,'days').format("ddd, MM/DD/YYYY")}</p>
                         </div>
                     </div>
                     <div class="content">
@@ -97,14 +97,7 @@ function getResults (query) { //Get Weather
     });
 }
 
-var formSubmitHandler = function (event) { //Get Input
-    event.preventDefault();
-
-    Map_reset(); //clear old map & markers
-
-    city = cityInputEl.value.trim();
-    state = document.querySelector("select[name='state-option']").value;
-
+var AddHouse = function (city, state) {
     fetch(`https://real-estate12.p.rapidapi.com/listings/sale?state=${state}&city=${city}&page=1&sort=relevant&type=single-family%2Cmulti-family`, {
         "method": "GET",
         "headers": {
@@ -117,16 +110,15 @@ var formSubmitHandler = function (event) { //Get Input
     })
 
     .then(function (data) {
-        console.log(data);
-        
-        getResults(city);
 
         if(Object.keys(data).includes("error")){ //detect invalid city name or typo
             modal.setAttribute("style", "display: block;");
         }
 
         Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
-            
+
+        getResults(city);
+
         houseCardsEl.innerHTML = '';
 
         for (let i = 0; i < 12; i++) {
@@ -200,18 +192,29 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`;
 
-        localStorage.setItem(cityInputEl.value.toUpperCase(), cityInputEl.value.toUpperCase());
+           localStorage.setItem(city.toUpperCase() + ", " + state, city.toUpperCase() + ", " + state);
+            refresh();
 
-        refresh();
+            var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
 
-        var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
-
-        AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, houseImg, address);
+            AddMarker(data.properties[i].location.address.coordinate.lat, data.properties[i].location.address.coordinate.lon, i, houseImg, address);
         }
+
     })
     .catch(err => {
         console.error(err);
     });
+};
+
+var formSubmitHandler = function (event) { //Get Input
+    event.preventDefault();
+
+    Map_reset(); //clear old map & markers
+
+    city = cityInputEl.value.trim();
+    state = document.querySelector("select[name='state-option']").value;
+
+    AddHouse(city, state);
 };
 
 span.onclick = function() {
@@ -232,7 +235,7 @@ function allStorage() {
     i = keys.length;
 
   while (i--) {
-      values.push(localStorage.getItem(keys[i]));
+      values.push(localStorage.getItem(keys[i]));   
   }
 
   return values;
@@ -241,23 +244,25 @@ function allStorage() {
 function refresh() {
   cityInputEl.value = '';
   savedCityDropdown.innerHTML = "";
+
   for (var i = 0; i < allStorage().length; i++) {
     savedCityDropdown.innerHTML += 
       `<a class="navbar-item">${allStorage()[i]}</a>`;
   }
 }
 
-// clearEl.addEventListener("click", () => {
-//     localStorage.clear();
-//     savedCityDropdown.innerHTML = ``;
-//   });
+var buttonClickHandler = function (event) { //If user click search histories
+
+    Map_reset(); //clear old map & markers
+    
+    var searchHistory = event.target.textContent;
+    var history = searchHistory.split(", ");
+    AddHouse(history[0], history[1]);
+};
 
 
 refresh();
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
-//   savedCityDropdown +=
-    //   `<a class="navbar-item">${currentCity}</a>`;
-    // Reference weather dashboard again, convert if needed
-   
-    
+savedCityDropdown.addEventListener('click', buttonClickHandler);
+
