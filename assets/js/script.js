@@ -1,6 +1,8 @@
 //Input
 var cityInputEl = document.querySelector('#cityname');
 var cityFormEl = document.querySelector('#city-form');
+var state_opt = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"];
+var stateOptEl= document.querySelector('#state-option');
 //Real Estate
 var houseCardsEl = document.getElementById("houseCards");
 //Map
@@ -16,6 +18,10 @@ var savedCitiesArray = [];
 //element used to populate saved city searches
 var savedCityDropdown = document.getElementById('savedCityDropdown');
 
+
+for(var n = 0; n < state_opt.length; n++){
+    stateOptEl.innerHTML += '<option value="' + state_opt[n] + '">' + state_opt[n] + '</option>';
+}
 
 var Add_Map = function (lat, lon) {
     if(first){
@@ -57,8 +63,9 @@ var formSubmitHandler = function (event) { //Get Input
     Map_reset(); //clear old map & markers
 
     city = cityInputEl.value.trim();
+    state = document.querySelector("select[name='state-option']").value;
 
-    fetch(`https://real-estate12.p.rapidapi.com/listings/sale?state=CA&city=${city}&page=1&sort=relevant&type=single-family%2Cmulti-family`, {
+    fetch(`https://real-estate12.p.rapidapi.com/listings/sale?state=${state}&city=${city}&page=1&sort=relevant&type=single-family%2Cmulti-family`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "real-estate12.p.rapidapi.com",
@@ -137,9 +144,9 @@ var formSubmitHandler = function (event) { //Get Input
                     <div class="content">
                     <p>
                         ${houseAddress},
-                        ${housePostal},
+                        ${houseCity},
                         ${houseState},
-                        ${houseCity}
+                        ${housePostal}
                     </p>
                     <p>
                         <b>${houseBeds}</b> Beds
@@ -151,7 +158,7 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`;
 
-        localStorage.setItem(cityInputEl.value, cityInputEl.value);
+       // saveCities(city);
 
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
 
@@ -175,38 +182,17 @@ window.onclick = function(event) {
 }
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
-
-function allStorage() {
-  
-    var values = [],
-    keys = Object.keys(localStorage),
-    i = keys.length;
-    console.log(keys);
-
-  while (i--) {
-      console.log(values);
-      values.push(localStorage.getItem(keys[i]));
-  }
-
-  return values;
+/*
+function saveCities(city) {
+    if (city !== "") {
+        savedCitiesArray.push(city);
+    }
+    localStorage.setItem("cities", JSON.stringify(savedCitiesArray));
+    savedCityNavLinks();
 }
-
-clearEl.addEventListener("click", () => {
-    localStorage.clear();
-    savedCityDropdown.innerHTML = ``;
-  });
-
-function refresh() {
-  cityInputEl.value = '';
-
-  for (var i = 0; i < allStorage().length; i++) {
-    savedCityDropdown +=
-      `<a class="navbar-item">${allStorage()[i]}</a>`;
-  }
-}
-
-refresh();
-
-//   savedCityDropdown +=
+*/
+    //   savedCityDropdown +=
     //   `<a class="navbar-item">${currentCity}</a>`;
     // Reference weather dashboard again, convert if needed
+   
+    
