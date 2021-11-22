@@ -10,7 +10,7 @@
 <a href="https://github.com/samvauclain/weather-and-real-estate/blob/README.md-LICENSE/LICENSE"><img src="https://img.shields.io/github/license/elangosundar/awesome-README-templates?color=2b9348" alt="License Badge"/></a>
 </div>
 <br>
-<p align="center"><i>Loved the project? Please visit our <a href="https://awesome-github-readme-profile.netlify.app">Website</a></i></p>
+<p align="center"><i>Loved the project? Please visit our <a href="https://samvauclain.github.io/weather-and-real-estate/">Website</a></i></p>
 <br>
 This repo contains all the tools needed to search up houses for various amounts of infomation ranging from price, location, yearly waether and much more!
 
@@ -29,7 +29,7 @@ This repo contains all the tools needed to search up houses for various amounts 
 
 [Link to website!]()
 
-![alt text](https://i.imgur.com/4foL7G8.png)
+<img src="./assets/img/weather-real-estate.png">
 
 
 ## Getting Started
