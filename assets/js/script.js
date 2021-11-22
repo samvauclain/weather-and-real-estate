@@ -70,7 +70,7 @@ function getResults (query) { //Get Weather
     }).then(function(data) {
 
   
-        
+
         weatherCardsEl.innerHTML = "";
 
     for (var i = 0; i < 5; i++) {
