@@ -68,13 +68,7 @@ function getResults (query) { //Get Weather
     .then(response => {
         return response.json();
     }).then(function(data) {
-        console.log(data);
-        // displayResults(data);
-        // let temp = document.querySelector('.current .title is-1');
-        // temp.innerHTML = `${data.main.temp}<span>°c</span>`;
-        // console.log(temp);
 
-        // var date = data.dt; 
         var date = (moment(moment()).format("ddd, MM/DD/YYYY"));
         
         weatherCardsEl.innerHTML = "";
@@ -119,7 +113,6 @@ var formSubmitHandler = function (event) { //Get Input
         }
     })
     .then(function (response) {
-        // console.log(response);
         return response.json();
     })
 
@@ -207,7 +200,8 @@ var formSubmitHandler = function (event) { //Get Input
                 </div>
             </div>`;
 
-        localStorage.setItem(cityInputEl.value, cityInputEl.value);
+        localStorage.setItem(cityInputEl.value.toUpperCase(), cityInputEl.value.toUpperCase());
+
         refresh();
 
         var address = data.properties[i].location.address.line + ", " + data.properties[i].location.address.city +  ", " +data.properties[i].location.address.state_code + " " + data.properties[i].location.address.postal_code;
@@ -236,10 +230,8 @@ function allStorage() {
     var values = [],
     keys = Object.keys(localStorage),
     i = keys.length;
-    console.log(keys);
 
   while (i--) {
-      console.log(values);
       values.push(localStorage.getItem(keys[i]));
   }
 
@@ -248,7 +240,7 @@ function allStorage() {
 
 function refresh() {
   cityInputEl.value = '';
-
+  savedCityDropdown.innerHTML = "";
   for (var i = 0; i < allStorage().length; i++) {
     savedCityDropdown.innerHTML += 
       `<a class="navbar-item">${allStorage()[i]}</a>`;
