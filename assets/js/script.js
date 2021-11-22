@@ -47,15 +47,10 @@ var Add_Map = function (lat, lon) {
 };
 
 var AddMarker = function (lat, lon, n, img_url, address) {
-<<<<<<< HEAD
-        marker[n] = L.marker([lat, lon]).addTo(mymap);
-        marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
-=======
         if(lat&&lon){
         marker[n] = L.marker([lat, lon]).addTo(mymap);
         marker[n].bindPopup('<img src=' + img_url + '>' + address).openPopup();
         }
->>>>>>> add_state_to_search
 };
 
 var Map_reset = function () { 
@@ -116,9 +111,6 @@ var AddHouse = function (city, state) {
 
     .then(function (data) {
 
-<<<<<<< HEAD
-        Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
-=======
         if(Object.keys(data).includes("error")){ //detect invalid city name or typo
             modal.setAttribute("style", "display: block;");
         }
@@ -126,7 +118,6 @@ var AddHouse = function (city, state) {
         Add_Map(data.properties[0].location.address.coordinate.lat, data.properties[0].location.address.coordinate.lon);
 
         getResults(city);
->>>>>>> add_state_to_search
 
         houseCardsEl.innerHTML = '';
 
@@ -175,11 +166,7 @@ var AddHouse = function (city, state) {
                 <div class="card">
                 <div class="card-image">
                     <figure id="houseImage" class="image is-4by3">
-<<<<<<< HEAD
-                    <img src="${data.properties[i].primary_photo.href}" alt="House image ${i}">
-=======
                     <img src="${houseImg}" alt="House image ${i}">
->>>>>>> add_state_to_search
                     </figure>
                 </div>
                 <div class="card-content">
